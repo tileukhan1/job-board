@@ -81,8 +81,36 @@
       background: var(--c, #555);
       color: #fff;
     }
-    .filter-btn[data-value="all"] { --c: #555; }
-    .filter-btn[data-value="closed"] { --c: #9ca3af; }
+
+    .sort-group {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .sort-lbl {
+      font-size: .75rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .sort-btn {
+      padding: 7px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      background: transparent;
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+      white-space: nowrap;
+    }
+    .sort-btn:hover { border-color: #6b7280; color: var(--text); }
+    .sort-btn.active {
+      background: var(--text);
+      color: #fff;
+      border-color: var(--text);
+    }
 
     /* ── Grid ── */
     .grid {
@@ -106,8 +134,6 @@
       transition: box-shadow .2s, transform .2s;
     }
     .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); transform: translateY(-2px); }
-    .card--closed { opacity: .5; }
-    .card--closed:hover { opacity: .75; }
 
     .card-top {
       display: flex;
@@ -159,7 +185,6 @@
       border-top: 1px solid var(--border);
     }
     .salary { font-size: .85rem; font-weight: 600; color: #16a34a; }
-    .closed-tag { font-size: .75rem; color: var(--muted); }
     .card-link {
       font-size: .8rem;
       font-weight: 600;
@@ -192,30 +217,33 @@
 
 <div class="header">
   <h1>IT Job Board · Kazakhstan</h1>
-  <p>Обновлено 05.06.2026 15:37</p>
+  <p>Обновлено 05.06.2026 16:09</p>
   <div class="stats">
-    <div class="stat"><div class="stat__num">81</div><div class="stat__lbl">всего</div></div>
-    <div class="stat"><div class="stat__num">81</div><div class="stat__lbl">активных</div></div>
-    <div class="stat"><div class="stat__num">0</div><div class="stat__lbl">закрытых</div></div>
+    <div class="stat"><div class="stat__num">82</div><div class="stat__lbl">вакансий</div></div>
   </div>
 </div>
 
 <div class="controls">
   <input class="search" id="search" type="search" placeholder="Поиск по названию, компании…">
-  <button class="filter-btn active" data-filter="status" data-value="all">Все</button>
-  <button class="filter-btn" data-filter="status" data-value="active">✅ Активные</button>
-  <button class="filter-btn" data-filter="status" data-value="closed">❌ Закрытые</button>
   <button class="filter-btn" data-filter="source" data-value="enbek" style="--c:#27ae60">enbek.kz</button>
 <button class="filter-btn" data-filter="source" data-value="railways" style="--c:#c0392b">job.railways.kz</button>
 <button class="filter-btn" data-filter="source" data-value="samruk" style="--c:#e67e22">Самрук-Қазына</button>
 
+  <div class="sort-group">
+    <span class="sort-lbl">Сортировка:</span>
+    <button class="sort-btn active" data-sort="date-desc">Дата ↓</button>
+    <button class="sort-btn" data-sort="date-asc">Дата ↑</button>
+    <button class="sort-btn" data-sort="salary-desc">Зарплата ↓</button>
+    <button class="sort-btn" data-sort="salary-asc">Зарплата ↑</button>
+  </div>
 </div>
 
 <div class="grid" id="grid">
   
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="480000"
          data-text="техник-программист коммунальное государственное предприятие на праве хозяйственного ведения &quot;восточно-казахстанская областная больница&quot; управления здравоохранения восточно-казахстанского областного акиматавосточно-казахстанская область, г. усть-каменогорск">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -227,7 +255,6 @@
   <div class="card-meta"><span class="meta-company">Коммунальное государственное предприятие на праве хозяйственного ведения &quot;Восточно-Казахстанская областная больница&quot; управления здравоохранения Восточно-Казахстанского областного акимата</span><span class="meta-sep">·</span><span class="meta-location">Восточно-Казахстанская область, г. Усть-Каменогорск</span></div>
   <div class="card-bottom">
     <div class="salary">от 480 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/medicinskii-tekhnik-tekhnik-programmist~5672847" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -235,7 +262,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="440000"
          data-text="инженер по автоматизации акционерное общество &quot;altyntau kokshetau&quot;акмолинская область, зерендинский район, с.конысбай">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -247,7 +275,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Altyntau Kokshetau&quot;</span><span class="meta-sep">·</span><span class="meta-location">Акмолинская область, Зерендинский район, с.Конысбай</span></div>
   <div class="card-bottom">
     <div class="salary">от 440 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/inzhener-avtomatizirovannoi-sistemy-upravleniya-gorno-transportnym-kompleksom-inzhener-po-avtomatizacii~5673524" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -255,7 +282,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="350000"
          data-text="бизнес-аналитик в области икт некоммерческое акционерное общество «информационно-аналитический центр водных ресурсов»г. астана, район есиль">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -267,7 +295,6 @@
   <div class="card-meta"><span class="meta-company">Некоммерческое акционерное общество «Информационно-аналитический центр водных ресурсов»</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
   <div class="card-bottom">
     <div class="salary">от 350 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/starshii-analitik-departamenta-tekhnologicheskoi-integracii-i-razvitiya-biznes-analitik-v-oblasti-ikt~5673859" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -275,7 +302,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="инженер по контрольно-измерительным приборам и автоматике товарищество с ограниченной ответственностью &quot;феникс интернешнл ресорсиз каспиан&quot;атырауская область, г. атырау">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -287,7 +315,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;Феникс Интернешнл Ресорсиз Каспиан&quot;</span><span class="meta-sep">·</span><span class="meta-location">Атырауская область, г. Атырау</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/proektirovshchik-kipia-i-elektriki-inzhener-po-kontrolno-izmeritelnym-priboram-i-avtomatike~5674567" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -295,7 +322,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="инженер по автоматизации товарищество с ограниченной ответственностью &quot;птицефабрика &quot;северный бройлер&quot;северо-казахстанская область, аккайынский район, с.аралагаш">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -307,7 +335,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;Птицефабрика &quot;СЕВЕРНЫЙ БРОЙЛЕР&quot;</span><span class="meta-sep">·</span><span class="meta-location">Северо-Казахстанская область, Аккайынский район, с.Аралагаш</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/inzhener-kontrolno-izmeritelnykh-priborov-i-avtomatiki-inzhener-po-avtomatizacii~5674651" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -315,7 +342,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="начальник икт-подразделений филиал &quot;норт каспиан оперейтинг компани н.в.&quot;атырауская область, г. атырау">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -327,7 +355,6 @@
   <div class="card-meta"><span class="meta-company">Филиал &quot;Норт Каспиан Оперейтинг Компани Н.В.&quot;</span><span class="meta-sep">·</span><span class="meta-location">Атырауская область, г. Атырау</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/nachalnik-otdela-po-upravleniyu-sistemoi-prp-nachalnik-ikt-podrazdelenii~5674904" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -335,7 +362,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="инженер инфраструктуры информационных технологий товарищество с ограниченной ответственностью &quot;карагандинская региональная энергетическая компания&quot;карагандинская область, г. караганда, октябрьский район">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -347,7 +375,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;Карагандинская региональная энергетическая компания&quot;</span><span class="meta-sep">·</span><span class="meta-location">Карагандинская область, г. Караганда, Октябрьский район</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/inzhenera-avtomatizirovannoi-sistemy-kommercheskogo-ucheta-elektroenergii-i-informacionnykh-tekhnologii-inzhener-infrastruktury-informacionnykh-tekhnologii~5675448" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -355,7 +382,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="системный аналитик акционерное общество &quot;kmf банк&quot;г. алматы, медеуский район">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -367,7 +395,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;KMF Банк&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Алматы, Медеуский район</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 до 500 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/junior-system-analitik-sistemnyi-analitik~5675799" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -375,7 +402,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="главный технический руководитель филиал &quot;норт каспиан оперейтинг компани н.в.&quot;атырауская область, г. атырау">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -387,7 +415,6 @@
   <div class="card-meta"><span class="meta-company">Филиал &quot;Норт Каспиан Оперейтинг Компани Н.В.&quot;</span><span class="meta-sep">·</span><span class="meta-location">Атырауская область, г. Атырау</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/nachalnik-otdela-po-upravleniyu-sistemoi-prp-glavnyi-tekhnicheskii-rukovoditel~5676186" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -395,7 +422,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="архитектор республиканское государственное предприятие на праве хозяйственного ведения «государственная вневедомственная экспертиза проектов» комитета по делам строительства и жилищно-коммунального хозяйства министерства промышленности и строительства республики казахстан (ргп &quot;госэкспертиза&quot;)г. астана, район &quot;байқоңыр&quot;">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -407,7 +435,6 @@
   <div class="card-meta"><span class="meta-company">Республиканское государственное предприятие на праве хозяйственного ведения «Государственная вневедомственная экспертиза проектов» Комитета по делам строительства и жилищно-коммунального хозяйства Министерства промышленности и строительства Республики Казахстан (РГП &quot;Госэкспертиза&quot;)</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район &quot;Байқоңыр&quot;</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/ekspert-sektora-gradostroitelnogo-plavnirovaniya-arkhitektor~5676273" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -415,7 +442,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="инженер-программист республиканское государственное предприятие на праве хозяйственного ведения «государственная вневедомственная экспертиза проектов» комитета по делам строительства и жилищно-коммунального хозяйства министерства промышленности и строительства республики казахстан (ргп &quot;госэкспертиза&quot;)г. астана, район &quot;байқоңыр&quot;">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -427,7 +455,6 @@
   <div class="card-meta"><span class="meta-company">Республиканское государственное предприятие на праве хозяйственного ведения «Государственная вневедомственная экспертиза проектов» Комитета по делам строительства и жилищно-коммунального хозяйства Министерства промышленности и строительства Республики Казахстан (РГП &quot;Госэкспертиза&quot;)</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район &quot;Байқоңыр&quot;</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/glavnyi-specialist-otdela-razvitiya-i-bim-tekhnologii-inzhener-programmist~5676299" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -435,7 +462,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="архитектор республиканское государственное предприятие на праве хозяйственного ведения «государственная вневедомственная экспертиза проектов» комитета по делам строительства и жилищно-коммунального хозяйства министерства промышленности и строительства республики казахстан (ргп &quot;госэкспертиза&quot;)г. астана, район &quot;байқоңыр&quot;">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -447,7 +475,6 @@
   <div class="card-meta"><span class="meta-company">Республиканское государственное предприятие на праве хозяйственного ведения «Государственная вневедомственная экспертиза проектов» Комитета по делам строительства и жилищно-коммунального хозяйства Министерства промышленности и строительства Республики Казахстан (РГП &quot;Госэкспертиза&quot;)</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район &quot;Байқоңыр&quot;</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/ekspert-sektora-inzhenernykh-setei-i-sistem-arkhitektor~5676322" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -455,7 +482,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="архитектор республиканское государственное предприятие на праве хозяйственного ведения «государственная вневедомственная экспертиза проектов» комитета по делам строительства и жилищно-коммунального хозяйства министерства промышленности и строительства республики казахстан (ргп &quot;госэкспертиза&quot;)г. астана, район &quot;байқоңыр&quot;">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -467,7 +495,6 @@
   <div class="card-meta"><span class="meta-company">Республиканское государственное предприятие на праве хозяйственного ведения «Государственная вневедомственная экспертиза проектов» Комитета по делам строительства и жилищно-коммунального хозяйства Министерства промышленности и строительства Республики Казахстан (РГП &quot;Госэкспертиза&quot;)</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район &quot;Байқоңыр&quot;</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/ekspert-konstruktorskogo-sektora-arkhitektor~5676329" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -475,7 +502,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="361000"
          data-text="заместитель начальника икт-подразделений государственное коммунальное предприятие на праве хозяйственного ведения «талдыкорганский высший аграрно-технологический колледж» государственного учреждения «управление образования области жетісу»область жетісу, г. талдыкорган">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -487,7 +515,6 @@
   <div class="card-meta"><span class="meta-company">Государственное коммунальное предприятие на праве хозяйственного ведения «Талдыкорганский высший аграрно-технологический колледж» государственного учреждения «Управление образования области Жетісу»</span><span class="meta-sep">·</span><span class="meta-location">Область Жетісу, г. Талдыкорган</span></div>
   <div class="card-bottom">
     <div class="salary">от 361 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/zamestitel-direktora-po-informacionnym-tekhnologiyam-zamestitel-nachalnika-ikt-podrazdelenii~5676359" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -495,7 +522,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="600000"
          data-text="системный аналитик акционерное общество &quot;дочерняя организация народного банка казахстана &quot;страховая компания &quot;халык&quot;г. алматы, алмалинский район">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -507,7 +535,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Дочерняя организация Народного Банка Казахстана &quot;Страховая компания &quot;Халык&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Алматы, Алмалинский район</span></div>
   <div class="card-bottom">
     <div class="salary">от 600 000 до 700 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/sistemnyi-analitik-sistemnyi-analitik~5676558" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -515,7 +542,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="500000"
          data-text="менеджер проекта акционерное общество &quot;дочерняя организация народного банка казахстана &quot;страховая компания &quot;халык&quot;г. алматы, алмалинский район">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -527,7 +555,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Дочерняя организация Народного Банка Казахстана &quot;Страховая компания &quot;Халык&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Алматы, Алмалинский район</span></div>
   <div class="card-bottom">
     <div class="salary">от 500 000 до 600 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/menedzher-produkta-menedzher-proekta~5676563" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -535,7 +562,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="450000"
          data-text="системный администратор товарищество с ограниченной ответственностью &quot;пластокно-костанай&quot;костанайская область, г. костанай">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -547,7 +575,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;Пластокно-Костанай&quot;</span><span class="meta-sep">·</span><span class="meta-location">Костанайская область, г. Костанай</span></div>
   <div class="card-bottom">
     <div class="salary">от 450 000 до 500 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/sistemnyi-administrator-sistemnyi-administrator~5676589" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -555,7 +582,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="1000000"
          data-text="специалист по разработке технической документации (технический писатель) товарищество с ограниченной ответственностью &quot;стамгазстрой&quot;атырауская область, г. атырау">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -567,7 +595,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;СТАМГазСтрой&quot;</span><span class="meta-sep">·</span><span class="meta-location">Атырауская область, г. Атырау</span></div>
   <div class="card-bottom">
     <div class="salary">от 1 000 000 до 1 500 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/technical-and-professional-development-specialist-specialist-po-tekhnicheskomu-i-professionalnomu-razvitiyu-specialist-po-razrabotke-tekhnicheskoi-dokumentacii-(tekhnicheskii-pisatel)~5676660" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -575,7 +602,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="560000"
          data-text="программист приложений кқкжоо еңбеккостанайская область, г. костанай">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -587,7 +615,6 @@
   <div class="card-meta"><span class="meta-company">КҚКжОО Еңбек</span><span class="meta-sep">·</span><span class="meta-location">Костанайская область, г. Костанай</span></div>
   <div class="card-bottom">
     <div class="salary">от 560 000 до 680 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/programmisty-programmist-prilozhenii~5676798" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -595,7 +622,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="1000000"
          data-text="разработчик программного обеспечения акционерное общество &quot;kmf банк&quot;г. алматы, медеуский район">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -607,7 +635,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;KMF Банк&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Алматы, Медеуский район</span></div>
   <div class="card-bottom">
     <div class="salary">от 1 000 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/senior-aml-razrabotchik-programmnogo-obespecheniya~5677324" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -615,7 +642,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="специалист по информационной безопасности некоммерческое акционерное общество «информационно-аналитический центр водных ресурсов»г. астана, район есиль">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -627,7 +655,6 @@
   <div class="card-meta"><span class="meta-company">Некоммерческое акционерное общество «Информационно-аналитический центр водных ресурсов»</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/specialist-po-informacionnoi-bezopasnosti-specialist-po-informacionnoi-bezopasnosti~5677617" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -635,7 +662,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="527000"
          data-text="мультимедийный дизайнер акционерное общество &quot;агентство &quot;хабар&quot;г. астана, район есиль">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -647,7 +675,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Агентство &quot;Хабар&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
   <div class="card-bottom">
     <div class="salary">от 527 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/vedushchii-moushn-dizainer-departamenta-dizaina-i-televizionnoi-grafiki-multimediinyi-dizainer~5677824" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -655,7 +682,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="мультимедийный дизайнер акционерное общество &quot;агентство &quot;хабар&quot;г. астана, район есиль">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -667,7 +695,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Агентство &quot;Хабар&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/moushn-dizainer-departamenta-dizaina-i-televizionnoi-grafiki-multimediinyi-dizainer~5677856" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -675,7 +702,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="383000"
          data-text="сетевой инженер товарищество с ограниченной ответственностью &quot;kyzyl aray copper&quot;карагандинская область, шетский район, с.аксу-аюлы">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -687,7 +715,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;Kyzyl Aray Copper&quot;</span><span class="meta-sep">·</span><span class="meta-location">Карагандинская область, Шетский район, с.Аксу-Аюлы</span></div>
   <div class="card-bottom">
     <div class="salary">от 383 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/setevoi-inzhener-setevoi-inzhener~5678233" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -695,7 +722,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="857000"
          data-text="инженер инфраструктуры информационных технологий товарищество с ограниченной ответственностью &quot;qazcode&quot;г. астана, район алматы">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -707,7 +735,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;QazCode&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Алматы</span></div>
   <div class="card-bottom">
     <div class="salary">от 857 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/software-support-engineer-erp-inzhener-infrastruktury-informacionnykh-tekhnologii~5678240" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -715,7 +742,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="900000"
          data-text="инженер по автоматизации товарищество с ограниченной ответственностью &quot;силлено&quot;атырауская область, г. атырау">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -727,7 +755,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;Силлено&quot;</span><span class="meta-sep">·</span><span class="meta-location">Атырауская область, г. Атырау</span></div>
   <div class="card-bottom">
     <div class="salary">от 900 000 до 1 000 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/vedushchii-inzhener-po-asutp,-departament-operacionnogo-bloka-inzhener-po-avtomatizacii~5678376" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -735,7 +762,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="инженер-программист акционерное общество &quot;агентство &quot;хабар&quot;г. астана, район есиль">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -747,7 +775,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Агентство &quot;Хабар&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/glavnyi-inzhener-razrabotchik-otdela-cifrovykh-reshenii-i-ai-tekhnologii-tekhnicheskoi-direkcii-inzhener-programmist~5678492" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -755,7 +782,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="1400000"
          data-text="главный технический руководитель товарищество с ограниченной ответственностью &quot;феникс интернешнл ресорсиз каспиан&quot;атырауская область, г. атырау">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -767,7 +795,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;Феникс Интернешнл Ресорсиз Каспиан&quot;</span><span class="meta-sep">·</span><span class="meta-location">Атырауская область, г. Атырау</span></div>
   <div class="card-bottom">
     <div class="salary">от 1 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/glavnyi-tekhnicheskii-rukovoditel-glavnyi-tekhnicheskii-rukovoditel~5678991" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -775,7 +802,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="документовед товарищество с ограниченной ответственностью &quot;каз-en&quot; (каз-ен)атырауская область, г. атырау">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -787,7 +815,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;КАЗ-EN&quot; (КАЗ-ЕН)</span><span class="meta-sep">·</span><span class="meta-location">Атырауская область, г. Атырау</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 до 430 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/dokumentoved-dokumentoved~5679161" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -795,7 +822,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="530000"
          data-text="инженер по защите информации акционерное общество &quot;республиканский центр космической связи&quot;г. астана, район есиль">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -807,7 +835,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Республиканский центр космической связи&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
   <div class="card-bottom">
     <div class="salary">от 530 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/vedushchii-inzhener-upravleniya-informacionnoi-bezopasnosti-departamenta-kosmicheskikh-sistem-svyazi-inzhener-po-zashchite-informacii~5679419" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -815,7 +842,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="администратор информационных систем акционерное общество &quot;государственное кредитное бюро&quot;г. алматы, алмалинский район">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -827,7 +855,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Государственное кредитное бюро&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Алматы, Алмалинский район</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/administrator-seti-peredachi-dannykh-upravleniya-administrirovaniya-it-infrastruktury-administrator-informacionnykh-sistem~5679748" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -835,7 +862,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="менеджер проекта акционерное общество &quot;государственное кредитное бюро&quot;г. алматы, алмалинский район">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -847,7 +875,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Государственное кредитное бюро&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Алматы, Алмалинский район</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/menedzher-upravleniya-prodazh-menedzher-proekta~5679771" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -855,7 +882,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="менеджер проекта товарищество с ограниченной ответственностью &quot;болашак-атырау&quot;мангистауская область, г. жанаозен">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -867,7 +895,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;Болашак-Атырау&quot;</span><span class="meta-sep">·</span><span class="meta-location">Мангистауская область, г. Жанаозен</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/operacionnyi-menedzher-menedzher-proekta~5680789" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -875,7 +902,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="360000"
          data-text="инженер технической поддержки в области телекоммуникаций филиал акционерного общества &quot;казтелерадио&quot; &quot;восточный&quot;павлодарская область, г. павлодар">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -887,7 +915,6 @@
   <div class="card-meta"><span class="meta-company">Филиал акционерного общества &quot;Казтелерадио&quot; &quot;Восточный&quot;</span><span class="meta-sep">·</span><span class="meta-location">Павлодарская область, г. Павлодар</span></div>
   <div class="card-bottom">
     <div class="salary">от 360 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/vedushchii-inzhener-po-tekhnicheskomu-obsluzhivaniyu-cifrovogo-oborudovaniya-rts-inzhener-tekhnicheskoi-podderzhki-v-oblasti-telekommunikacii~5680880" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -895,7 +922,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="инженер по телерадиовещанию филиал акционерного общества &quot;казтелерадио&quot; &quot;восточный&quot;павлодарская область, г. павлодар">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -907,7 +935,6 @@
   <div class="card-meta"><span class="meta-company">Филиал акционерного общества &quot;Казтелерадио&quot; &quot;Восточный&quot;</span><span class="meta-sep">·</span><span class="meta-location">Павлодарская область, г. Павлодар</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/vedushchii-inzhener-po-ekspluatacii-seti-trv-inzhener-po-teleradioveshchaniyu~5680911" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -915,7 +942,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="468000"
          data-text="руководитель проекта товарищество с ограниченной ответственностью &quot;tazakazakhstan&quot;карагандинская область, г. караганда, район им.казыбек би">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -927,7 +955,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;TAZAKazakhstan&quot;</span><span class="meta-sep">·</span><span class="meta-location">Карагандинская область, г. Караганда, район им.Казыбек би</span></div>
   <div class="card-bottom">
     <div class="salary">от 468 000 до 700 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/operator-bpla-dji-matrice-rukovoditel-proekta~5681156" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -935,7 +962,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="569000"
          data-text="финансист товарищество с ограниченной ответственностью &quot;aviata&quot;г. алматы, алмалинский район">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -947,7 +975,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;Aviata&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Алматы, Алмалинский район</span></div>
   <div class="card-bottom">
     <div class="salary">от 569 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/analitik-dannykh-finansist~5681180" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -955,7 +982,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="врач детский хирург государственное коммунальное предприятие на праве хозяйственного ведения &quot;городская больница №2&quot; управления здравоохранения города шымкентаг. шымкент">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -967,7 +995,6 @@
   <div class="card-meta"><span class="meta-company">Государственное коммунальное предприятие на праве хозяйственного ведения &quot;Городская больница №2&quot; управления здравоохранения города Шымкента</span><span class="meta-sep">·</span><span class="meta-location">г. Шымкент</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 до 450 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/vrach-detskii-khirurg-vrach-detskii-khirurg~5681284" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -975,7 +1002,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="480000"
          data-text="специалист по информационной безопасности акционерное общество &quot;единый накопительный пенсионный фонд&quot;г. алматы, медеуский район">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -987,7 +1015,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Единый накопительный пенсионный фонд&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Алматы, Медеуский район</span></div>
   <div class="card-bottom">
     <div class="salary">от 480 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/glavnyi-specialist-upravleniya-zashchity-informacii-departamenta-kiberbezopasnosti-specialist-po-informacionnoi-bezopasnosti~5681461" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -995,7 +1022,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="400000"
          data-text="инженер по автоматизации акционерное общество &quot;агентство &quot;хабар&quot;г. астана, район есиль">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1007,7 +1035,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Агентство &quot;Хабар&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
   <div class="card-bottom">
     <div class="salary">от 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/ai-inzhener-otdela-cifrovykh-reshenii-i-ai-tekhnologii-tekhnicheskoi-direkcii-inzhener-po-avtomatizacii~5682467" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1015,7 +1042,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="750000"
          data-text="специалист по разработке архитектуры графического интерфейса филиал assystem engineering and operation services s.a.s. в республике казахстанг. астана, район есиль">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1027,7 +1055,6 @@
   <div class="card-meta"><span class="meta-company">Филиал Assystem Engineering and Operation Services S.A.S. в Республике Казахстан</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
   <div class="card-bottom">
     <div class="salary">от 750 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/specialist-po-razrabotke-programmnogo-obespecheniya-specialist-po-razrabotke-arkhitektury-graficheskogo-interfeisa~5682531" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1035,7 +1062,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="900000"
          data-text="инженер инфраструктуры информационных технологий товарищество с ограниченной ответственностью &quot;болашак-атырау&quot;атырауская область, г. атырау">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1047,7 +1075,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;Болашак-Атырау&quot;</span><span class="meta-sep">·</span><span class="meta-location">Атырауская область, г. Атырау</span></div>
   <div class="card-bottom">
     <div class="salary">от 900 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/inzhener-po-razrabotke-programmnogo-obespecheniya-1-3-kategorii-inzhener-infrastruktury-informacionnykh-tekhnologii~5684240" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1055,7 +1082,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="450000"
          data-text="специалист по безопасности сервисов некоммерческое акционерное общество &quot;медицинский университет астана&quot;г. астана, район сарыарка">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1067,7 +1095,6 @@
   <div class="card-meta"><span class="meta-company">Некоммерческое Акционерное Общество &quot;Медицинский университет Астана&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Сарыарка</span></div>
   <div class="card-bottom">
     <div class="salary">от 450 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/glavnyi-specialist-po-kiberbezopasnosti-specialist-po-bezopasnosti-servisov~5685023" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1075,7 +1102,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="1400000"
          data-text="инженер-программист товарищество с ограниченной ответственностью &quot;стамгазстрой&quot;атырауская область, г. атырау">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1087,7 +1115,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;СТАМГазСтрой&quot;</span><span class="meta-sep">·</span><span class="meta-location">Атырауская область, г. Атырау</span></div>
   <div class="card-bottom">
     <div class="salary">от 1 400 000 до 2 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/engineer,-analyzer---engineer,-analyzer-i,ii-inzhener-po-analizatoram---inzhener-po-analizatoram-i,-ii-inzhener-programmist~5685154" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1095,7 +1122,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="1400000"
          data-text="инженер-программист товарищество с ограниченной ответственностью &quot;стамгазстрой&quot;атырауская область, г. атырау">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1107,7 +1135,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;СТАМГазСтрой&quot;</span><span class="meta-sep">·</span><span class="meta-location">Атырауская область, г. Атырау</span></div>
   <div class="card-bottom">
     <div class="salary">от 1 400 000 до 2 400 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/engineer,-software-i-iii-inzhener-po-razrabotke-programmnogo-obespecheniya-1-3-kategorii-inzhener-programmist~5685164" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1115,7 +1142,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="550000"
          data-text="инженер-программист акционерное общество &quot;национальный центр исследований и оценки образования &quot;талдау&quot; имени ахмет байтұрсынұлы&quot;г. астана, район есиль">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1127,7 +1155,6 @@
   <div class="card-meta"><span class="meta-company">Акционерное общество &quot;Национальный центр исследований и оценки образования &quot;Талдау&quot; имени Ахмет Байтұрсынұлы&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
   <div class="card-bottom">
     <div class="salary">от 550 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/inzhener-programmist-departamenta-proektnogo-administrirovaniya-nacionalnoi-obrazovatelnoi-bazy-dannykh-inzhener-programmist~5685373" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1135,7 +1162,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="500000"
          data-text="системный аналитик товарищество с ограниченной ответственностью &quot;bazis-а corp.&quot;г. алматы, бостандыкский район">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1147,7 +1175,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;BAZIS-А Corp.&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Алматы, Бостандыкский район</span></div>
   <div class="card-bottom">
     <div class="salary">от 500 000 до 800 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/sistemnyi-analitik-1s-konsultant-1s-sistemnyi-analitik~5686085" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1155,7 +1182,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="550000"
          data-text="специалист по разработке технической документации (технический писатель) товарищество с ограниченной ответственностью &quot;altynqr&quot;г. астана, район есиль">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1167,7 +1195,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;AltynQR&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
   <div class="card-bottom">
     <div class="salary">от 550 000 до 600 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/testirovshchik-specialist-po-razrabotke-tekhnicheskoi-dokumentacii-(tekhnicheskii-pisatel)~5686871" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1175,7 +1202,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="450000"
          data-text="бизнес-аналитик в области икт республиканское государственное предприятие на праве хозяйственного ведения «республиканский центр государственного градостроительного планирования и кадастра» комитета по делам строительства и жилищно-коммунального хозяйства министерства промышленности и строительства республики казахстанг. астана, район есиль">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1187,7 +1215,6 @@
   <div class="card-meta"><span class="meta-company">Республиканское государственное предприятие на праве хозяйственного ведения «Республиканский центр государственного градостроительного планирования и кадастра» Комитета по делам строительства и жилищно-коммунального хозяйства Министерства промышленности и строительства Республики Казахстан</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
   <div class="card-bottom">
     <div class="salary">от 450 000 до 550 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/glavnyi-specialist-analitik-biznes-analitik-v-oblasti-ikt~5688494" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1195,7 +1222,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="600000"
          data-text="начальник икт-подразделений товарищество с ограниченной ответственностью &quot;ksp steеl&quot; (&quot;кейэспи стил&quot;)павлодарская область, г. павлодар">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1207,7 +1235,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;KSP Steеl&quot; (&quot;КейЭсПи Стил&quot;)</span><span class="meta-sep">·</span><span class="meta-location">Павлодарская область, г. Павлодар</span></div>
   <div class="card-bottom">
     <div class="salary">от 600 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/nachalnik-sluzhby-sistemnogo-administrirovaniya-it-podrazdelenie-nachalnik-ikt-podrazdelenii~5688968" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1215,7 +1242,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="2200000"
          data-text="инженер по автоматизации товарищество с ограниченной ответственностью &quot;стамгазстрой&quot;атырауская область, г. атырау">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1227,7 +1255,6 @@
   <div class="card-meta"><span class="meta-company">Товарищество с ограниченной ответственностью &quot;СТАМГазСтрой&quot;</span><span class="meta-sep">·</span><span class="meta-location">Атырауская область, г. Атырау</span></div>
   <div class="card-bottom">
     <div class="salary">от 2 200 000 до 3 200 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/engineer,-process-control-automation-ii-iii-inzhener-po-upravleniyu-tekhnologicheskimi-processami-avtomatizacii-ii-iii-inzhener-po-avtomatizacii~5688977" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
@@ -1235,7 +1262,8 @@
 
 <article class="card"
          data-source="enbek"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="650000"
          data-text="специалист по информационной безопасности акционерное общество &quot;казахстанский центр индустрии и экспорта &quot;qazindustry&quot;г. астана, район &quot;нұра&quot;">
   <div class="card-top">
     <span class="badge" style="--c:#27ae60">enbek.kz</span>
@@ -1247,15 +1275,35 @@
   <div class="card-meta"><span class="meta-company">акционерное общество &quot;Казахстанский центр индустрии и экспорта &quot;QazIndustry&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район &quot;Нұра&quot;</span></div>
   <div class="card-bottom">
     <div class="salary">от 650 000 тг.</div>
-    
     <a class="card-link" href="https://enbek.kz/ru/vacancy/rukovoditel-sluzhby-informacionnoi-bezopasnosti-specialist-po-informacionnoi-bezopasnosti~5689172" target="_blank" rel="noopener"
        style="color:#27ae60">Открыть →</a>
   </div>
 </article>
 
 <article class="card"
+         data-source="enbek"
+         data-date="2026-06-05"
+         data-salary="546000"
+         data-text="сетевой администратор некоммерческое акционерное общество &quot;фонд социального медицинского страхования&quot;г. астана, район есиль">
+  <div class="card-top">
+    <span class="badge" style="--c:#27ae60">enbek.kz</span>
+    <span class="date">2026-06-05</span>
+  </div>
+  <a class="card-title" href="https://enbek.kz/ru/vacancy/vedushchii-setevoi-administrator-setevoi-administrator~5690204" target="_blank" rel="noopener">
+    Сетевой администратор
+  </a>
+  <div class="card-meta"><span class="meta-company">Некоммерческое акционерное общество &quot;Фонд социального медицинского страхования&quot;</span><span class="meta-sep">·</span><span class="meta-location">г. Астана, район Есиль</span></div>
+  <div class="card-bottom">
+    <div class="salary">от 546 000 до 580 000 тг.</div>
+    <a class="card-link" href="https://enbek.kz/ru/vacancy/vedushchii-setevoi-administrator-setevoi-administrator~5690204" target="_blank" rel="noopener"
+       style="color:#27ae60">Открыть →</a>
+  </div>
+</article>
+
+<article class="card"
          data-source="railways"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="328286"
          data-text="инженер-программист 1 категории производственно-технического отдела актогайское эксплуатационное локомотивное депо филиала тоо «алматинское отделение гп» тчэ- 29 актогайское эксплуатационное локомотивное депоалматинская область">
   <div class="card-top">
     <span class="badge" style="--c:#c0392b">job.railways.kz</span>
@@ -1267,7 +1315,6 @@
   <div class="card-meta"><span class="meta-company">ТЧЭ- 29 Актогайское эксплуатационное локомотивное депо</span><span class="meta-sep">·</span><span class="meta-location">Алматинская область</span></div>
   <div class="card-bottom">
     <div class="salary">328 286 - 347 796 KZT</div>
-    
     <a class="card-link" href="https://job.railways.kz/vacancy/41852" target="_blank" rel="noopener"
        style="color:#c0392b">Открыть →</a>
   </div>
@@ -1275,7 +1322,8 @@
 
 <article class="card"
          data-source="railways"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="482846"
          data-text="менеджер (15 грейд) сектора разработки и внедрения ит систем департамента информационных технологий филиала ао «нк «қтж» - «дирекция магистральной сети» филиал ао «нк «қтж» - «дирекция магистральной сети»г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#c0392b">job.railways.kz</span>
@@ -1287,7 +1335,6 @@
   <div class="card-meta"><span class="meta-company">Филиал АО «НК «ҚТЖ» - «Дирекция магистральной сети»</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     <div class="salary">от 482 846 KZT</div>
-    
     <a class="card-link" href="https://job.railways.kz/vacancy/49626" target="_blank" rel="noopener"
        style="color:#c0392b">Открыть →</a>
   </div>
@@ -1295,7 +1342,8 @@
 
 <article class="card"
          data-source="railways"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="482846"
          data-text="менеджер (15 грейд) сектора развития ит систем на базе sap департамента информационных технологий филиала ао «нк «қтж» - «дирекция магистральной сети» филиал ао «нк «қтж» - «дирекция магистральной сети»г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#c0392b">job.railways.kz</span>
@@ -1307,7 +1355,6 @@
   <div class="card-meta"><span class="meta-company">Филиал АО «НК «ҚТЖ» - «Дирекция магистральной сети»</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     <div class="salary">от 482 846 KZT</div>
-    
     <a class="card-link" href="https://job.railways.kz/vacancy/50814" target="_blank" rel="noopener"
        style="color:#c0392b">Открыть →</a>
   </div>
@@ -1315,7 +1362,8 @@
 
 <article class="card"
          data-source="railways"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="250729"
          data-text="ведущий инженер-программист 2-го уровня отдела системного администрирования филиала ао «нк «ктж» – «главный вычислительный центр» филиал ао «нк «ктж» – «главный вычислительный центр»г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#c0392b">job.railways.kz</span>
@@ -1327,7 +1375,6 @@
   <div class="card-meta"><span class="meta-company">Филиал АО «НК «КТЖ» – «Главный вычислительный центр»</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     <div class="salary">от 250 729 KZT</div>
-    
     <a class="card-link" href="https://job.railways.kz/vacancy/50927" target="_blank" rel="noopener"
        style="color:#c0392b">Открыть →</a>
   </div>
@@ -1335,7 +1382,8 @@
 
 <article class="card"
          data-source="railways"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="409129"
          data-text="ведущий инженер-программист (место дислокации в гпф -1 г. кокшетау) жана-есильского эксплуатационного локомотивного депо филиала тоо «ктж-грузовые перевозки»-«ақмола» тчэ-9 жана-есильское эксплуатационное локомотивное депоакмолинская область">
   <div class="card-top">
     <span class="badge" style="--c:#c0392b">job.railways.kz</span>
@@ -1347,7 +1395,6 @@
   <div class="card-meta"><span class="meta-company">ТЧЭ-9 Жана-Есильское эксплуатационное локомотивное депо</span><span class="meta-sep">·</span><span class="meta-location">Акмолинская область</span></div>
   <div class="card-bottom">
     <div class="salary">409 129 - 409 129 KZT</div>
-    
     <a class="card-link" href="https://job.railways.kz/vacancy/51601" target="_blank" rel="noopener"
        style="color:#c0392b">Открыть →</a>
   </div>
@@ -1355,7 +1402,8 @@
 
 <article class="card"
          data-source="railways"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="главный менеджер группы технического сопровождения департамента информационных технологий и цифровизации ао «ktz express» ао «ktz express»г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#c0392b">job.railways.kz</span>
@@ -1367,7 +1415,6 @@
   <div class="card-meta"><span class="meta-company">АО «KTZ Express»</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     <div class="salary">Зарплата не указана</div>
-    
     <a class="card-link" href="https://job.railways.kz/vacancy/51644" target="_blank" rel="noopener"
        style="color:#c0392b">Открыть →</a>
   </div>
@@ -1375,7 +1422,8 @@
 
 <article class="card"
          data-source="railways"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="652848"
          data-text="главный менеджер группы внедрения it-решений департамента информационных технологий и цифровизации ао «ktz express» ао «ktz express»г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#c0392b">job.railways.kz</span>
@@ -1387,7 +1435,6 @@
   <div class="card-meta"><span class="meta-company">АО «KTZ Express»</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     <div class="salary">от 652 848 KZT</div>
-    
     <a class="card-link" href="https://job.railways.kz/vacancy/51645" target="_blank" rel="noopener"
        style="color:#c0392b">Открыть →</a>
   </div>
@@ -1395,7 +1442,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="328286"
          data-text="инженер-программист 1 категории производственно-технического отдела актогайское эксплуатационное локомотивное депо филиала тоо «алматинское отделение гп» тчэ- 29 актогайское эксплуатационное локомотивное депо 2 группыалматинская область">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1407,7 +1455,6 @@
   <div class="card-meta"><span class="meta-company">ТЧЭ- 29 АКТОГАЙСКОЕ ЭКСПЛУАТАЦИОННОЕ ЛОКОМОТИВНОЕ ДЕПО 2 ГРУППЫ</span><span class="meta-sep">·</span><span class="meta-location">Алматинская область</span></div>
   <div class="card-bottom">
     <div class="salary">328 286 - 347 796</div>
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/83253" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1415,7 +1462,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="системный администратор отдела поддержки вычислительной и сетевой инфраструктуры г. атырау (сектор аутстаффинга) тоо «кмг-кумколь»г.атырау">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1427,7 +1475,6 @@
   <div class="card-meta"><span class="meta-company">ТОО «КМГ-Кумколь»</span><span class="meta-sep">·</span><span class="meta-location">г.Атырау</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/95266" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1435,7 +1482,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="482846"
          data-text="менеджер (15 грейд) сектора разработки и внедрения ит систем департамента информационных технологий филиала ао «нк «қтж» - «дирекция магистральной сети» филиал ао «нк «қтж» - «дирекция магистральной сети»;г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1447,7 +1495,6 @@
   <div class="card-meta"><span class="meta-company">Филиал АО «НК «ҚТЖ» - «Дирекция магистральной сети»;</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     <div class="salary">от 482 846</div>
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/95990" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1455,7 +1502,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="482846"
          data-text="менеджер (15 грейд) сектора развития ит систем на базе sap департамента информационных технологий филиала ао «нк «қтж» - «дирекция магистральной сети» филиал ао «нк «қтж» - «дирекция магистральной сети»;г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1467,7 +1515,6 @@
   <div class="card-meta"><span class="meta-company">Филиал АО «НК «ҚТЖ» - «Дирекция магистральной сети»;</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     <div class="salary">от 482 846</div>
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/97215" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1475,7 +1522,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="главный специалист юридического отдела туркестанского производственного филиала ао &quot;qazaqgaz aimaq&quot; туркестанский производственный филиал ао «qazaqgaz aimaq»г.туркестан">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1487,7 +1535,6 @@
   <div class="card-meta"><span class="meta-company">Туркестанский производственный филиал АО «QazaqGaz Aimaq»</span><span class="meta-sep">·</span><span class="meta-location">г.Туркестан</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/97458" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1495,7 +1542,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="слесарь по эксплуатации и ремонту подземных газопроводов 3 разряда 0.75 ставки лисаковского газового хозяйства костанайского производственного филиала ао &quot;qazaqgaz aimaq&quot; костанайский производственный филиал ао «qazaqgaz aimaq»г.лисаковск">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1507,7 +1555,6 @@
   <div class="card-meta"><span class="meta-company">Костанайский производственный филиал АО «QazaqGaz Aimaq»</span><span class="meta-sep">·</span><span class="meta-location">г.Лисаковск</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/97687" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1515,7 +1562,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="специалист отдела информационных технологии кызылординского производственного филиала ао  «qazaqgaz aimaq» (на период отсутствия основного работника) кызылординский производственный филиал ао «qazaqgaz aimaq»г.кызылорда">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1527,7 +1575,6 @@
   <div class="card-meta"><span class="meta-company">Кызылординский производственный филиал АО «QazaqGaz Aimaq»</span><span class="meta-sep">·</span><span class="meta-location">г.Кызылорда</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98473" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1535,7 +1582,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="консультант / разработчик sap fiori тоо «кмг-кумколь»г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1547,7 +1595,6 @@
   <div class="card-meta"><span class="meta-company">ТОО «КМГ-Кумколь»</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98572" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1555,7 +1602,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="409129"
          data-text="ведущий инженер-программист (место дислокации в гпф -1 г. кокшетау) жана-есильского эксплуатационного локомотивного депо филиала тоо «ктж-грузовые перевозки»-«ақмола» тчэ-9 жана-есильское эксплуатационное локомотивное депо 2 группыакмолинская область">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1567,7 +1615,6 @@
   <div class="card-meta"><span class="meta-company">ТЧЭ-9 ЖАНА-ЕСИЛЬСКОЕ ЭКСПЛУАТАЦИОННОЕ ЛОКОМОТИВНОЕ ДЕПО 2 группы</span><span class="meta-sep">·</span><span class="meta-location">Акмолинская область</span></div>
   <div class="card-bottom">
     <div class="salary">409 129 - 409 129</div>
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98575" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1575,7 +1622,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="главный менеджер группы технического сопровождения департамента информационных технологий и цифровизации ао «ktz express» ао «ktz express»г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1587,7 +1635,6 @@
   <div class="card-meta"><span class="meta-company">АО «KTZ Express»</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     <div class="salary">Зарплата не указана</div>
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98597" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1595,7 +1642,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="652848"
          data-text="главный менеджер группы внедрения it-решений департамента информационных технологий и цифровизации ао «ktz express» ао «ktz express»г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1607,7 +1655,6 @@
   <div class="card-meta"><span class="meta-company">АО «KTZ Express»</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     <div class="salary">от 652 848</div>
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98598" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1615,7 +1662,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="ведущий специалист сектора развития и архитектуры информационных технологий управления развития и архитектуры информационных технологий департамента цифрового развития (аутстаффинг) ао нк «казмунайгаз»г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1627,7 +1675,6 @@
   <div class="card-meta"><span class="meta-company">АО НК «КазМунайГаз»</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98626" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1635,7 +1682,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="главный специалист (эколог) службы производственного контроля, охраны труда и окружающей среды жетысуского производственного филиала ао «qazaqgaz aimaq» жетысуский производственный филиал «qazaqgaz aimaq»г.талдыкорган">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1647,7 +1695,6 @@
   <div class="card-meta"><span class="meta-company">Жетысуский производственный филиал «QazaqGaz Aimaq»</span><span class="meta-sep">·</span><span class="meta-location">г.Талдыкорган</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98634" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1655,7 +1702,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="главный специалист-руководитель проекта сектора развития и архитектуры информационных технологий управления развития и архитектуры информационных технологий департамента цифрового развития  (аутстаффинг) ао нк «казмунайгаз»г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1667,7 +1715,6 @@
   <div class="card-meta"><span class="meta-company">АО НК «КазМунайГаз»</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98637" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1675,7 +1722,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="системный администратор группы по автоматизации, информационным технологиям и связи тоо «oil services company»г.актау">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1687,7 +1735,6 @@
   <div class="card-meta"><span class="meta-company">ТОО «Oil Services Company»</span><span class="meta-sep">·</span><span class="meta-location">г.Актау</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98715" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1695,7 +1742,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="начальник юридического отдела жамбылского производственного филиала ао &quot;qazaqgaz aimaq&quot; жамбылский производственный филиал ао «qazaqgaz aimaq»г.тараз">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1707,7 +1755,6 @@
   <div class="card-meta"><span class="meta-company">Жамбылский производственный филиал АО «QazaqGaz Aimaq»</span><span class="meta-sep">·</span><span class="meta-location">г.Тараз</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98767" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1715,7 +1762,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="слесарь по эксплуатации и ремонту подземных газопроводов жалагашского газового хозяйства  кызылординского производственного филиала ао &quot;qazaqgaz aimaq&quot; кызылординский производственный филиал ао «qazaqgaz aimaq»г.кызылорда">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1727,7 +1775,6 @@
   <div class="card-meta"><span class="meta-company">Кызылординский производственный филиал АО «QazaqGaz Aimaq»</span><span class="meta-sep">·</span><span class="meta-location">г.Кызылорда</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98774" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1735,7 +1782,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="главный специалист отдела экономики и тарифообразования жамбылского производственного филиала ао &quot;qazaqgaz aimaq&quot; жамбылский производственный филиал ао «qazaqgaz aimaq»г.тараз">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1747,7 +1795,6 @@
   <div class="card-meta"><span class="meta-company">Жамбылский производственный филиал АО «QazaqGaz Aimaq»</span><span class="meta-sep">·</span><span class="meta-location">г.Тараз</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98775" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1755,7 +1802,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="инженер по автоматизированным системам управления производством (асуп) цеха автоматизации производства &quot;каламкас&quot;(аутстаффинг) мунайтелекомг.актау">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1767,7 +1815,6 @@
   <div class="card-meta"><span class="meta-company">Мунайтелеком</span><span class="meta-sep">·</span><span class="meta-location">г.Актау</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98841" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1775,7 +1822,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="слесарь по эксплуатации и ремонту подземных газопроводов 3 разряда сауранского газового хозяйства туркестанского производственного филиала ао «qazaqgaz aimaq» туркестанский производственный филиал ао «qazaqgaz aimaq»г.кентау">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1787,7 +1835,6 @@
   <div class="card-meta"><span class="meta-company">Туркестанский производственный филиал АО «QazaqGaz Aimaq»</span><span class="meta-sep">·</span><span class="meta-location">г.Кентау</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98848" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1795,7 +1842,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="ведущий специалист по  информационным технологиям ао &quot;волковгеология&quot;г.алматы">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1807,7 +1855,6 @@
   <div class="card-meta"><span class="meta-company">АО &quot;Волковгеология&quot;</span><span class="meta-sep">·</span><span class="meta-location">г.Алматы</span></div>
   <div class="card-bottom">
     
-    
     <a class="card-link" href="https://qsamruk.kz/vacancy/98854" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
   </div>
@@ -1815,7 +1862,8 @@
 
 <article class="card"
          data-source="samruk"
-         data-status="active"
+         data-date="2026-06-05"
+         data-salary="0"
          data-text="старший инженер (консультант 1с) тоо «кмг-кумколь»г.астана">
   <div class="card-top">
     <span class="badge" style="--c:#e67e22">Самрук-Қазына</span>
@@ -1826,7 +1874,6 @@
   </a>
   <div class="card-meta"><span class="meta-company">ТОО «КМГ-Кумколь»</span><span class="meta-sep">·</span><span class="meta-location">г.Астана</span></div>
   <div class="card-bottom">
-    
     
     <a class="card-link" href="https://qsamruk.kz/vacancy/98891" target="_blank" rel="noopener"
        style="color:#e67e22">Открыть →</a>
@@ -1845,16 +1892,27 @@
   const empty = document.getElementById('empty');
   const cards = [...grid.querySelectorAll('.card')];
 
-  let state = { search: '', status: 'all', source: '' };
+  let search = '';
+  let source = '';
+  let sortState = 'date-desc';
 
   function update() {
-    const q = state.search.toLowerCase();
+    // Re-order cards in grid by current sort.
+    const sorted = [...cards].sort((a, b) => {
+      if (sortState === 'date-desc')    return b.dataset.date.localeCompare(a.dataset.date);
+      if (sortState === 'date-asc')     return a.dataset.date.localeCompare(b.dataset.date);
+      if (sortState === 'salary-desc')  return (parseInt(b.dataset.salary) || 0) - (parseInt(a.dataset.salary) || 0);
+      if (sortState === 'salary-asc')   return (parseInt(a.dataset.salary) || 0) - (parseInt(b.dataset.salary) || 0);
+      return 0;
+    });
+    sorted.forEach(c => grid.appendChild(c));
+
+    // Show / hide.
+    const q = search.toLowerCase();
     let visible = 0;
     cards.forEach(c => {
-      const matchText   = !q || c.dataset.text.includes(q);
-      const matchStatus = state.status === 'all' || c.dataset.status === state.status;
-      const matchSource = !state.source || c.dataset.source === state.source;
-      const show = matchText && matchStatus && matchSource;
+      const show = (!q || c.dataset.text.includes(q))
+                && (!source || c.dataset.source === source);
       c.style.display = show ? '' : 'none';
       if (show) visible++;
     });
@@ -1862,19 +1920,24 @@
   }
 
   document.getElementById('search').addEventListener('input', e => {
-    state.search = e.target.value;
+    search = e.target.value;
     update();
   });
 
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const {filter, value} = btn.dataset;
-      state[filter] = state[filter] === value && filter !== 'status' ? '' : value;
+      source = source === btn.dataset.value ? '' : btn.dataset.value;
+      document.querySelectorAll('.filter-btn')
+        .forEach(b => b.classList.toggle('active', b.dataset.value === source));
+      update();
+    });
+  });
 
-      // Toggle active class within same filter group.
-      document.querySelectorAll(`.filter-btn[data-filter="${filter}"]`)
-        .forEach(b => b.classList.toggle('active', b === btn && (filter === 'status' || state[filter] === value)));
-
+  document.querySelectorAll('.sort-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sortState = btn.dataset.sort;
+      document.querySelectorAll('.sort-btn')
+        .forEach(b => b.classList.toggle('active', b === btn));
       update();
     });
   });
